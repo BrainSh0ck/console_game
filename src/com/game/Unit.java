@@ -3,80 +3,108 @@ package com.game;
 /**
  * Created by root on 10.04.2017.
  */
-public abstract class Unit {
-    protected Arts face;
-    protected Specs spec;
-    protected Races race;
-
-
-    private static final int MAX_HP = 100;
-    private int HP = (int)MAX_HP;
-
-    private int quota;
-
-    private boolean normal = true;
-    private boolean extra = false;
-    private boolean cursed = false;
-
-    private String name;
-    private int dmg;
-    private String action1;
-    private String action2;
-    private String action3;
-
-    Unit(){
-
+public class Unit extends Constract {
+    Unit(final String race, Specs spec) {
+        this.race = race;
+        this.spec = spec;
+        unit_init();
     }
 
-
-
-    //----------------------------------------------------------------------------------------//
-    public int getHP() {
-        return HP;
+    private void unit_init() {
+        setEntity_race(race_init());
+        setEntity_spec(spec_init());
+        switch (getEntity_spec()) {
+            case "mag" : {setMag(this.race);break;}
+            case "archer" : {setArcher(this.race);break;}
+            case "warrior" : {setWarrior(this.race);break;}
+            default : {break;}
+        }
     }
 
-    public void hit(int HP) {
-        this.HP = HP;
+    private String spec_init() {
+        String spec;
+        switch (this.spec.toString()) {
+            case "1": {
+                spec = "mag";
+                break;
+            }
+            case "2": {
+                spec = "archer";
+                break;
+            }
+            case "3": {
+                spec = "warrior";
+                break;
+            }
+            default: {
+                spec = "";
+                break;
+            }
+        }
+        return spec;
     }
 
-    public int getQuota() {
-        return quota;
-    }
+    private String race_init() {
+        String race;
+        switch (this.race) {
+            case "ork": {
+                race = "ork";
+                break;
+            }
+            case "undead": {
+                race = "undead";
+                break;
+            }
+            case "human": {
+                race = "human";
+                break;
+            }
+            case "elf": {
+                race = "elf";
+                break;
+            }
+            default: {
+                race = "";
+                break;
+            }
 
-    public void setQuota(int quota) {
-        this.quota = quota;
+        }
+        return race;
     }
+    private void setMag(String race) {
+        String[] sets = new String[4];
+        sets=this.spec.setMag(this.race);
+        this.setName(sets[0]);
+        this.setmDmg(Integer.parseInt(sets[1]));
+        this.setAction1(sets[2]);
+        this.setAction2(sets[3]);
+        this.setQuota(this.spec.getQuota());
+    }
+    private void setArcher(String race) {
+        String[] sets = new String[5];
+        sets=this.spec.setArcher(this.race);
+        this.setName(sets[0]);
+        this.setmDmg(Integer.parseInt(sets[1]));
+        this.setAction1(sets[2]);
+        this.setrDmg(Integer.parseInt(sets[3]));
+        this.setAction2(sets[4]);
+        this.setQuota(this.spec.getQuota());
+    }
+    private void setWarrior(String race) {
+        String[] sets = new String[4];
+        sets=this.spec.setWarrior(this.race);
+        this.setName(sets[0]);
+        this.setmDmg(Integer.parseInt(sets[1]));
+        this.setAction1(sets[2]);
+        this.setQuota(this.spec.getQuota());
+    }
+    public void showEntity() {
+        System.out.println(String.format("%s-%s # %s: %d %s %d %s %s (%d)",getEntity_race(),getEntity_spec(),getName(), getmDmg(),
+                getAction1(), getrDmg(),getAction2(),getAction3(),getQuota()));
+        }
 
-    public boolean status() {
-        return normal;
-    }
 
-    public void setNormal(boolean normal) {
-        this.normal = normal;
-    }
 
-    public void setExtra(boolean extra) {
-        this.extra = extra;
-    }
 
-    public void setCursed(boolean cursed) {
-        this.cursed = cursed;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getDmg() {
-        return dmg;
-    }
-
-    public void setDmg(int dmg) {
-        this.HP = this.HP - dmg;
-    }
 
 }
