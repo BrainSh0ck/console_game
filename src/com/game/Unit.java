@@ -3,7 +3,7 @@ package com.game;
 /**
  * Created by root on 10.04.2017.
  */
-public class Unit extends Constract {
+public class Unit extends Constract implements Actions{
     Unit(final String race, Specs spec) {
         this.race = race;
         this.spec = spec;
@@ -72,11 +72,51 @@ public class Unit extends Constract {
         this.setQuota(this.spec.getQuota());
     }
     public void showEntity() {
-        System.out.println(String.format("%s-%s # %s: %d %s %d %s %s (%d)",getEntity_race(),getEntity_spec(),getName(), getmDmg(),
-                getAction1(), getrDmg(),getAction2(),getAction3(),getQuota()));
+        System.out.println(String.format("HP(%d)-%s ",getHP(),getName()));
         }
 
 
+    @Override
+    public Unit attack_mag(Unit unit) {
+        return null;
+    }
+
+    @Override
+    public Unit attack_war(Unit unit) {
+       unit.hit(unit.getHP() - this.getmDmg());
+       this.displayWar(getAction1(),unit);
+        return unit;
+    }
+
+    @Override
+    public Unit attack_arm(Unit unit) {
+        return null;
+    }
+
+    @Override
+    public Unit attack_arr(Unit unit) {
+        return null;
+    }
+
+    @Override
+    public Unit extra(Unit unit) {
+        return null;
+    }
+
+    @Override
+    public Unit dextra(Unit unit) {
+        return null;
+    }
+
+    @Override
+    public Unit curce(Unit unit) {
+        return null;
+    }
+
+    public void displayWar(String console, Unit unit) {
+        System.out.println(this.getName() + console + "по " + unit.getName() +" вышибив " + this.getmDmg() + " HP "
+                +  " (" + unit.getHP()+" осталось)");
+    }
 
 
 

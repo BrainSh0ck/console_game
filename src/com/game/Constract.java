@@ -42,6 +42,7 @@ public abstract class Constract {
     private String action1 = "";
     private String action2 = "";
     private String action3 = "";
+    public boolean hasMove = false;
 
     public String getName() {
         return name;
