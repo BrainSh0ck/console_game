@@ -3,10 +3,11 @@ package com.game;
 /**
  * Created by root on 10.04.2017.
  */
-public class Unit extends Constract {
-    Unit(final String race, Specs spec) {
+public class Unit extends Construct {
+    Unit(final String race, Specs spec,Actions action) {
         this.race = race;
         this.spec = spec;
+        this.action = action;
         unit_init();
     }
 

@@ -67,17 +67,17 @@ public class Director extends Former {
     @Override
     public Unit createMage(String race) {
 
-        return new Unit(race, new Mag());
+        return new Unit(race, new Mag(),new MagAction());
     }
 
     @Override
     public Unit createArcher(String race) {
 
-        return new Unit(race,new Archer());
+        return new Unit(race,new Archer(),new ArchAction());
     }
 
     @Override
     public Unit createWarrior(String race) {
-        return new Unit(race,  new Warrior());
+        return new Unit(race,  new Warrior(),new WarAction());
     }
 }

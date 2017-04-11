@@ -3,7 +3,8 @@ package com.game;
 /**
  * Created by root on 10.04.2017.
  */
-public abstract class Constract {
+public abstract class Construct {
+    protected Actions action;
     protected String race;
     protected Specs spec;
 
@@ -91,7 +92,7 @@ public abstract class Constract {
         this.action3 = action3;
     }
 
-    Constract(){
+    Construct(){
 
     }
 
