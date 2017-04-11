@@ -13,6 +13,7 @@ public abstract class Specs {
     protected String[] setWarrior (String race) {
         return null;
     }
+
     protected int getQuota() {
         return 0;
     }

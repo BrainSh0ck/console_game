@@ -11,7 +11,7 @@ public class Unit extends Constract {
     }
 
     private void unit_init() {
-        setEntity_race(race_init());
+        setEntity_race(this.race);
         setEntity_spec(spec_init());
         switch (getEntity_spec()) {
             case "mag" : {setMag(this.race);break;}
@@ -44,33 +44,6 @@ public class Unit extends Constract {
         return spec;
     }
 
-    private String race_init() {
-        String race;
-        switch (this.race) {
-            case "ork": {
-                race = "ork";
-                break;
-            }
-            case "undead": {
-                race = "undead";
-                break;
-            }
-            case "human": {
-                race = "human";
-                break;
-            }
-            case "elf": {
-                race = "elf";
-                break;
-            }
-            default: {
-                race = "";
-                break;
-            }
-
-        }
-        return race;
-    }
     private void setMag(String race) {
         String[] sets = new String[4];
         sets=this.spec.setMag(this.race);
