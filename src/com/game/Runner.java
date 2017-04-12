@@ -46,31 +46,23 @@ public class Runner {
      *  Методы атаки привелигированных войск
      */
     public static void light_extraAttack (){
-        if (light_extra.size()-1 > 0) {
-            int random = random(light.size() - 1, 0);
-            light_extra.get(random).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
-            light_extra.get(random).hasMove = true;
-            light_extra.remove(random);
-           // System.out.println(light_extra.size());
-        }
-        if (light_extra.size()-1 == 0) {
+        if ((light_extra.size()-1) == 0) {
             light_extra.get(0).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light_extra.get(0).hasMove = true;
             light_extra.remove(0);
+            if (dark_extra.size() > 0) {
+                dark_extraAttack();
+            } else {darkAttack();}
         }
     }
     public static void dark_extraAttack () {
-        if (dark_extra.size()-1 > 0) {
-            int random = random(dark.size() - 1, 0);
-            dark_extra.get(random).do_action(light_full.get(random(light_full.size() - 1, 0)));
-            dark_extra.get(random).hasMove = true;
-            dark_extra.remove(random);
-           // System.out.println(dark.size());
-        }
-        if (dark_extra.size()-1 == 0) {
+        if ((dark_extra.size()-1) == 0) {
             dark_extra.get(0).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark_extra.get(0).hasMove = true;
             dark_extra.remove(0);
+            if (light_extra.size() > 0) {
+                light_extraAttack();
+            } else {lightAttack();}
         }
     }
 
@@ -78,31 +70,35 @@ public class Runner {
      * Методы атаки обычных войск
      */
     public static void lightAttack() {
-        if (light.size()-1 > 0) {
+        if ((light.size()-1) > 0) {
             int random = random(light.size() - 1, 0);
             light.get(random).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light.get(random).hasMove = true;
             light.remove(random);
-           // System.out.println(light.size());
+            darkAttack();
+         //   System.out.println(light.size());
         }
-        if (light.size()-1 == 0) {
+        if ((light.size()-1) == 0) {
             light.get(0).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light.get(0).hasMove = true;
             light.remove(0);
+           // System.out.println("last");
         }
     }
     public static void darkAttack() {
-        if (dark.size()-1 > 0) {
+        if ((dark.size()-1) > 0) {
             int random = random(dark.size() - 1, 0);
             dark.get(random).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark.get(random).hasMove = true;
             dark.remove(random);
-           // System.out.println(dark.size());
+            lightAttack();
+            //System.out.println(dark.size());
         }
-        if (dark.size()-1 == 0) {
+        if ((dark.size()-1) == 0) {
             dark.get(0).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark.get(0).hasMove = true;
             dark.remove(0);
+            //System.out.println("last");
         }
     }
 
@@ -148,31 +144,33 @@ public class Runner {
      * Собственно сама реализация раунда
      */
     public static void doRound() {
-        while ( (light.size() > 0) & (dark.size() > 0) ) {
-             switch (random(2,1)) {
-                case 1 : {
-                   // System.out.println(light_extra.isEmpty());
-                    if(light_extra.size() >= 0)light_extraAttack();
 
-                        if(light_extra.size() == 0) {
-                           // System.out.println(light.toString());
-                            if (light.size() >= 0) lightAttack();
-                        }
+            switch (random(2,1)) {
+                case 1 : {
+                    while ((light.size() > 0) | (dark.size() > 0)) {
+                    if (light_extra.size() >= 0) light_extraAttack();
+                    //if (dark_extra.size() >= 0) dark_extraAttack();
+
+
+                        lightAttack();
+                        darkAttack();
+                    }
                 break;
                 }
 
                 case 2 : {
-                    //System.out.println(dark_extra.isEmpty());
+                    while ((dark.size() > 0) | (light.size() > 0)) {
                     if(dark_extra.size() >= 0) dark_extraAttack();
+                    //if(light_extra.size() >= 0)light_extraAttack();
 
-                    if (dark_extra.size() == 0) {
-                        //System.out.println(dark.toString());
-                        if (dark.size() >= 0) darkAttack();
+                        darkAttack();
+                        lightAttack();
+
                     }
                 break;
                 }
             }
-         }
+
         System.out.print("-----------------------------------------------------------------");System.out.println();
     System.out.print(light.size());System.out.println(dark.size());
     }
