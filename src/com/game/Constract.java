@@ -2,33 +2,14 @@ package com.game;
 
 /**
  * Created by root on 10.04.2017.
+ * Главный предок объекта со всеми общими свойствами
  */
 public abstract class Constract {
     protected String race;
     protected Specs spec;
 
-
     private static final int MAX_HP = 100;
     private int HP = (int)MAX_HP;
-
-    private int quota;
-
-
-    public String getEntity_race() {
-        return entity_race;
-    }
-
-    public void setEntity_race(String entity_race) {
-        this.entity_race = entity_race;
-    }
-
-    public String getEntity_spec() {
-        return entity_spec;
-    }
-
-    public void setEntity_spec(String entity_spec) {
-        this.entity_spec = entity_spec;
-    }
 
     private String entity_race;
     private String entity_spec;
@@ -38,8 +19,9 @@ public abstract class Constract {
     private int rDmg = -1;
     private String action1 = "";
     private String action2 = "";
-    private String action3 = "";
 
+    Constract(){
+    }
 
     protected boolean hasMove = false;
     protected boolean extra = false;
@@ -76,6 +58,22 @@ public abstract class Constract {
         return name;
     }
 
+    public String getEntity_race() {
+        return entity_race;
+    }
+
+    public void setEntity_race(String entity_race) {
+        this.entity_race = entity_race;
+    }
+
+    public String getEntity_spec() {
+        return entity_spec;
+    }
+
+    public void setEntity_spec(String entity_spec) {
+        this.entity_spec = entity_spec;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -104,10 +102,6 @@ public abstract class Constract {
         return action2;
     }
 
-    public String getAction3() {
-        return action3;
-    }
-
     public void setAction1(String action1) {
         this.action1 = action1;
     }
@@ -116,17 +110,6 @@ public abstract class Constract {
         this.action2 = action2;
     }
 
-    public void setAction3(String action3) {
-        this.action3 = action3;
-    }
-
-    Constract(){
-
-    }
-
-
-
-    //----------------------------------------------------------------------------------------//
     public int getHP() {
         return HP;
     }
@@ -134,15 +117,6 @@ public abstract class Constract {
     public void hit(int HP) {
         this.HP = HP;
     }
-
-    public int getQuota() {
-        return quota;
-    }
-
-    public void setQuota(int quota) {
-        this.quota = quota;
-    }
-
 
 
 

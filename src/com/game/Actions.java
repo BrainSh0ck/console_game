@@ -2,7 +2,9 @@ package com.game;
 
 /**
  * Created by root on 11.04.2017.
+ * Интерфейс методов-действий объктов
  */
+
 public interface Actions {
 Unit attack_war(Unit unit);
 Unit attack_arr (Unit unit);

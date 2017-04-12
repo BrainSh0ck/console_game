@@ -2,8 +2,14 @@ package com.game;
 
 import java.util.*;
 
+/**
+ *  Класс в котором находиться точка входа в программу
+ */
 public class Runner {
 
+    /**
+     * Набор коллекций для работы с отрядами объектов
+     */
     public static List<Unit> light_full = new LinkedList<Unit>();
     public static List<Unit> dark_full = new LinkedList<Unit>();
     public static List<Unit> light = new LinkedList<Unit>();
@@ -25,6 +31,10 @@ public class Runner {
         //roundEnd();
 
     }
+
+    /**
+     *  Методы атаки привелигированных войск
+     */
     public static void light_extraAttack (){
         if (light_extra.size()-1 > 0) {
             int random = random(light.size() - 1, 0);
@@ -53,6 +63,10 @@ public class Runner {
             dark_extra.remove(0);
         }
     }
+
+    /**
+     * Методы атаки обычных войск
+     */
     public static void lightAttack() {
         if (light.size()-1 > 0) {
             int random = random(light.size() - 1, 0);
@@ -81,11 +95,22 @@ public class Runner {
             dark.remove(0);
         }
     }
+
+    /**
+     * Функция рандомизатор взята из офф. исходников
+     * @param max максимальное случайное значени
+     * @param min минимальное случайное значение
+     * @return целое случайное число
+     */
     public static int random(final int max, final int min) {
         Random rand = new Random();
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
     }
+
+    /**
+     * Работа с коллекциями объектов на старте раунда
+     */
     public static void roundStart() {
         for (Unit c : light_full) {
             if (c.isExtra()) {
@@ -98,6 +123,10 @@ public class Runner {
             } else {dark.add(c);}
         }
     }
+
+    /**
+     * Собственно сама реализация раунда
+     */
     public static void doRound() {
         for (int i = 0; i <16 ; i++) {
             switch (random(2,1)) {
@@ -119,6 +148,10 @@ public class Runner {
          }
         System.out.print("-----------------------------------------------------------------");System.out.println();
     }
+
+    /**
+     * Работа с объектами по окончанию раунда
+     */
     public static void roundEnd() {
         for (Unit e : light_full) {
             if (e.isExtra()) {
@@ -135,6 +168,11 @@ public class Runner {
             }
         }
     }
+
+    /**
+     * Метод отладки
+     * @param list коллекция объктов
+     */
     public static void showCollection (List<Unit> list) {
         for (Unit l : list) {
             //l.showEntity();
