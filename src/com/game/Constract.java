@@ -56,7 +56,6 @@ public abstract class Constract {
         this.rDmg = (int)upR;
         this.extra = extra;
     }
-
     public boolean isCursed() {
         return cursed;
     }

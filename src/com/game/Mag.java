@@ -13,8 +13,8 @@ public class Mag extends Specs {
     protected String[] setMag (String race) {
         String[] mag = new String[6];
         switch (race) {
-            case "ork" : { mag[0] = "Шаман"; mag[3] = "0"; mag[4]=" наложил улучшение ";
-                mag[5]=" наложил проклятье ";
+            case "ork" : { mag[0] = "Шаман"; mag[3] = "0"; mag[4]=" наложил проклятье ";
+                mag[5]=" наложил улучшение ";
                 break; }
             case "undead" : { mag[0] = "Некромант"; mag[3] = "5"; mag[4]=" выстрелил магической стрелой ";
                 mag[5]=" наслал недуг ";

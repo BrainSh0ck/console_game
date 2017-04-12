@@ -16,28 +16,13 @@ public class Runner {
         Director director = new Director();
         director.MakeSquads();
         roundStart();
-        for (int i = 0; i <16 ; i++) {
-            switch (random(2,1)) {
-                case 1 : {
-                    if(light_extra.size() >= 0)light_extraAttack();
-                    if(light.size() >= 0)lightAttack();
-                    break;}
-                case 2 : {
-                    if(dark_extra.size() >= 0)dark_extraAttack();
-                    if(dark.size() >= 0)darkAttack();
-                    break;}
-            }
-        }
-        roundStart();
-        for (int i = 0; i <16 ; i++) {
-            switch (random(2,1)) {
-                case 1 : {if(light.size() >= 0)lightAttack();break;}
-                case 2 : {if(dark.size() >= 0)darkAttack();break;}
-            }
-        }
+        doRound();
+
+        //roundStart();
+        //doRound();
         showCollection(light_full);
         showCollection(dark_full);
-        roundEnd();
+        //roundEnd();
 
     }
     public static void light_extraAttack (){
@@ -46,6 +31,7 @@ public class Runner {
             light_extra.get(random).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light_extra.get(random).hasMove = true;
             light_extra.remove(random);
+            System.out.println(light_extra.size());
         }
         if (light_extra.size()-1 == 0) {
             light_extra.get(0).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
@@ -59,7 +45,7 @@ public class Runner {
             dark_extra.get(random).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark_extra.get(random).hasMove = true;
             dark_extra.remove(random);
-            //   System.out.println(dark.size());
+            System.out.println(dark.size());
         }
         if (dark_extra.size()-1 == 0) {
             dark_extra.get(0).do_action(light_full.get(random(light_full.size() - 1, 0)));
@@ -112,12 +98,33 @@ public class Runner {
             } else {dark.add(c);}
         }
     }
+    public static void doRound() {
+        for (int i = 0; i <16 ; i++) {
+            switch (random(2,1)) {
+                case 1 : {
+                    if(light_extra.size() >= 0)light_extraAttack();
+                        if(light_extra.size() == 0) {
+                            //System.out.println(light_extra.size());
+                            if (light.size() >= 0) lightAttack();
+                        }
+                    break;}
+                case 2 : {
+                    if(dark_extra.size() >= 0)dark_extraAttack();
+                    if (dark_extra.size() == 0) {
+                        //System.out.println(dark_extra.size());
+                        if (dark.size() >= 0) darkAttack();
+                    }
+                    break;}
+            }
+         }
+        System.out.print("-----------------------------------------------------------------");System.out.println();
+    }
     public static void roundEnd() {
         for (Unit e : light_full) {
             if (e.isExtra()) {
-                e.setExtra(false);
+                e.deExtra(false);
             } if (e.isCursed()) {
-                e.setCursed(false);
+                e.deCursed(false);
             }
         }
         for (Unit e : dark_full) {
@@ -130,7 +137,9 @@ public class Runner {
     }
     public static void showCollection (List<Unit> list) {
         for (Unit l : list) {
-            l.showEntity();
+            //l.showEntity();
+            l.showSquadStat();
         }
+        System.out.println("***************************************************************");
     }
 }
