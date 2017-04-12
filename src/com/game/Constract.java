@@ -15,6 +15,8 @@ public abstract class Constract {
     private String name;
     private int mDmg = -1;
     private int rDmg = -1;
+    private int old_mDmg = -1;
+    private int old_rDmg = -1;
     private String action1 = "";
     private String action2 = "";
 
@@ -25,14 +27,27 @@ public abstract class Constract {
     protected boolean extra = false;
     protected boolean cursed = false;
 
+    protected boolean next_extra = false;
+    protected boolean next_cursed = false;
+
+
+    protected boolean next_clear = false;
+
+
     public boolean isExtra() {
         return extra;
     }
 
     public void clearExtra(final boolean extra) {
+        setmDmg(getOld_mDmg());
+        setrDmg(getOld_rDmg());
         this.extra = extra;
     }
     public void setExtra(final boolean extra) {
+        if (!isCursed()) {
+        this.old_mDmg = this.mDmg;
+        this.old_rDmg = this.rDmg;
+        }
         float upM = mDmg*1.5F;
         this.mDmg = (int)upM;
         float upR = rDmg*1.5F;
@@ -44,6 +59,10 @@ public abstract class Constract {
     }
 
     public void setCursed(final boolean cursed) {
+        if (!isExtra()) {
+        this.old_mDmg = this.mDmg;
+        this.old_rDmg = this.rDmg;
+        }
         float upM = mDmg/1.5F;
         this.mDmg = (int)upM;
         float upR = rDmg/1.5F;
@@ -52,8 +71,44 @@ public abstract class Constract {
         this.cursed = cursed;
     }
 
+    public boolean isNext_clear() {
+        return next_clear;
+    }
+
+    public void setNext_clear(boolean next_clear) {
+        this.next_clear = next_clear;
+    }
+
+    public boolean isNext_extra() {
+        return next_extra;
+    }
+
+    public void setNext_extra(boolean next_extra) {
+        this.next_extra = next_extra;
+    }
+
+    public boolean isNext_cursed() {
+        return next_cursed;
+    }
+
+    public void setNext_cursed(boolean next_cursed) {
+        this.next_cursed = next_cursed;
+    }
+
+    public int getOld_mDmg() {
+        return old_mDmg;
+    }
+
+    public int getOld_rDmg() {
+        return old_rDmg;
+    }
+
     public String getName() {
-        return name;
+        String new_name;
+        if (isExtra()) {
+            new_name = "Улучшенный " + this.name;
+        } else new_name=name;
+        return new_name;
     }
 
     public String getEntity_race() {

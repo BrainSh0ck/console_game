@@ -19,16 +19,26 @@ public class Runner {
 
 
     public static void main(String[] args) {
+        clear_static();
         Director director = new Director();
         director.MakeSquads();
         roundStart();
         doRound();
+        roundEnd();
 
-        //roundStart();
-        //doRound();
+        roundStart();
+        doRound();
+        roundEnd();
+
+        roundStart();
+        doRound();
+        roundEnd();
+
+        roundStart();
+
         showCollection(light_full);
         showCollection(dark_full);
-        //roundEnd();
+
 
     }
 
@@ -41,7 +51,7 @@ public class Runner {
             light_extra.get(random).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light_extra.get(random).hasMove = true;
             light_extra.remove(random);
-            System.out.println(light_extra.size());
+           // System.out.println(light_extra.size());
         }
         if (light_extra.size()-1 == 0) {
             light_extra.get(0).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
@@ -55,7 +65,7 @@ public class Runner {
             dark_extra.get(random).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark_extra.get(random).hasMove = true;
             dark_extra.remove(random);
-            System.out.println(dark.size());
+           // System.out.println(dark.size());
         }
         if (dark_extra.size()-1 == 0) {
             dark_extra.get(0).do_action(light_full.get(random(light_full.size() - 1, 0)));
@@ -73,7 +83,7 @@ public class Runner {
             light.get(random).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light.get(random).hasMove = true;
             light.remove(random);
-            //System.out.println(light.size());
+           // System.out.println(light.size());
         }
         if (light.size()-1 == 0) {
             light.get(0).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
@@ -87,7 +97,7 @@ public class Runner {
             dark.get(random).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark.get(random).hasMove = true;
             dark.remove(random);
-         //   System.out.println(dark.size());
+           // System.out.println(dark.size());
         }
         if (dark.size()-1 == 0) {
             dark.get(0).do_action(light_full.get(random(light_full.size() - 1, 0)));
@@ -112,12 +122,22 @@ public class Runner {
      * Работа с коллекциями объектов на старте раунда
      */
     public static void roundStart() {
+        light.clear();
+        dark.clear();
+        light_extra.clear();
+        dark_extra.clear();
         for (Unit c : light_full) {
+            if(c.isNext_extra()) { c.setExtra(true); c.setNext_extra(false); }
+            if(c.isNext_clear()) { c.clearExtra(false); c.setNext_clear(false);}
+            if(c.isNext_cursed()) { c.setCursed(true); c.setNext_cursed(false);}
             if (c.isExtra()) {
                 light_extra.add(c);
             } else {light.add(c);}
         }
         for (Unit c : dark_full) {
+            if(c.isNext_extra()) { c.setExtra(true); c.setNext_extra(false); }
+            if(c.isNext_clear()) { c.clearExtra(false); c.setNext_clear(false);}
+            if(c.isNext_cursed()) { c.setCursed(true); c.setNext_cursed(false);}
             if (c.isExtra()) {
                 dark_extra.add(c);
             } else {dark.add(c);}
@@ -128,26 +148,35 @@ public class Runner {
      * Собственно сама реализация раунда
      */
     public static void doRound() {
-        for (int i = 0; i <16 ; i++) {
-            switch (random(2,1)) {
+        while ( (light.size() > 0) & (dark.size() > 0) ) {
+             switch (random(2,1)) {
                 case 1 : {
+                   // System.out.println(light_extra.isEmpty());
                     if(light_extra.size() >= 0)light_extraAttack();
+
                         if(light_extra.size() == 0) {
-                            //System.out.println(light_extra.size());
+                           // System.out.println(light.toString());
                             if (light.size() >= 0) lightAttack();
                         }
-                    break;}
+                break;
+                }
+
                 case 2 : {
-                    if(dark_extra.size() >= 0)dark_extraAttack();
+                    //System.out.println(dark_extra.isEmpty());
+                    if(dark_extra.size() >= 0) dark_extraAttack();
+
                     if (dark_extra.size() == 0) {
-                        //System.out.println(dark_extra.size());
+                        //System.out.println(dark.toString());
                         if (dark.size() >= 0) darkAttack();
                     }
-                    break;}
+                break;
+                }
             }
          }
         System.out.print("-----------------------------------------------------------------");System.out.println();
+    System.out.print(light.size());System.out.println(dark.size());
     }
+
 
     /**
      * Работа с объектами по окончанию раунда
@@ -162,9 +191,9 @@ public class Runner {
         }
         for (Unit e : dark_full) {
             if (e.isExtra()) {
-                e.setExtra(false);
+                e.deExtra(false);
             } if (e.isCursed()) {
-                e.setCursed(false);
+                e.deCursed(false);
             }
         }
     }
@@ -179,5 +208,14 @@ public class Runner {
             l.showSquadStat();
         }
         System.out.println("***************************************************************");
+    }
+    public static void clear_static () {
+        light_full.clear();
+        light.clear();
+        light_extra.clear();
+
+        dark_full.clear();
+        dark.clear();
+        dark_extra.clear();
     }
 }

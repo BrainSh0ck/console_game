@@ -50,11 +50,13 @@ public class Unit extends Constract implements Actions{
         return spec;
     }
     public void deExtra(final boolean extra) {
-        unit_init();
+        setmDmg(getOld_mDmg());
+        setrDmg(getOld_rDmg());
         this.extra = extra;
     }
     public void deCursed(final boolean curce) {
-        unit_init();
+        setmDmg(getOld_mDmg());
+        setrDmg(getOld_rDmg());
         this.cursed = curce;
     }
     private void setMag(final String race) {
@@ -199,27 +201,27 @@ public class Unit extends Constract implements Actions{
         }
         switch (rnd_allow) {
             case 1 : {
-                candidats.get(0).setExtra(true);
+                candidats.get(0).setNext_extra(true);
                 ob = candidats.get(0);
                 break;
             }
             case 2 : {
-                candidats.get(1).setExtra(true);
+                candidats.get(1).setNext_extra(true); //setExtra true
                 ob = candidats.get(1);
                 break;
             }
             case 3 : {
-                candidats.get(2).setExtra(true);
+                candidats.get(2).setNext_extra(true);
                 ob = candidats.get(2);
                 break;
             }
             case 4 : {
-                candidats.get(3).setExtra(true);
+                candidats.get(3).setNext_extra(true);
                 ob = candidats.get(3);
                 break;
             }
             default : {
-                candidats.get(0).setExtra(true);
+                candidats.get(0).setNext_extra(true);
                 ob = candidats.get(0);
                 break;
             }
@@ -238,7 +240,7 @@ public class Unit extends Constract implements Actions{
         if (Runner.light_full.contains(unit)) {
             for (Unit cont : Runner.light_full) {
                 if (cont.isExtra()) {
-                    cont.clearExtra(false);
+                    cont.setNext_clear(true);
                     ob = cont;
                     break;
                 }
@@ -247,7 +249,7 @@ public class Unit extends Constract implements Actions{
         if (Runner.dark_full.contains(unit)) {
             for (Unit cont : Runner.dark_full) {
                 if (isExtra()) {
-                    cont.clearExtra(false);
+                    cont.setNext_clear(true); //clear Extra (false)
                     ob = cont;
                     break;
                 }
@@ -259,7 +261,7 @@ public class Unit extends Constract implements Actions{
 
     @Override
     public Unit curce(final Unit unit) {
-        unit.setCursed(true);
+        unit.setNext_cursed(true); //setCursed true
         this.displayCurce(getAction2(),unit);
         return unit;
     }
