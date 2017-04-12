@@ -90,12 +90,16 @@ public class Unit extends Constract implements Actions{
 
     @Override
     public Unit attack_arm(Unit unit) {
-        return null;
+        unit.hit(unit.getHP() - this.getmDmg());
+        this.displayWar(getAction1(),unit);
+        return unit;
     }
 
     @Override
     public Unit attack_arr(Unit unit) {
-        return null;
+        unit.hit(unit.getHP() - this.getmDmg());
+        this.displayWar(getAction1(),unit);
+        return unit;
     }
 
     @Override

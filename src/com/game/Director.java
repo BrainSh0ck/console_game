@@ -12,7 +12,7 @@ public class Director extends Former {
     private static final String ELF = "elf";
 
     //List<List> squad = new ArrayList<List>();
-    //List<Unit> dark_ready = new ArrayList<Unit>();
+    //List<Unit> dark_full = new ArrayList<Unit>();
 
     public void MakeSquads() {
 
@@ -37,12 +37,12 @@ public class Director extends Former {
             case 2 : {race = HUMAN; break;}
             default :  {race = ""; break;}
         }
-        Runner.light_ready.add(createMage(race));
+        Runner.light_full.add(createMage(race));
         for (int i = 0; i <= 2; i++) {
-            Runner.light_ready.add(createArcher(race));
+            Runner.light_full.add(createArcher(race));
         }
         for (int i = 0; i <= 3; i++) {
-            Runner.light_ready.add(createWarrior(race));
+            Runner.light_full.add(createWarrior(race));
         }
     }
     public void setDarkSquad (int race_rnd) {
@@ -52,12 +52,12 @@ public class Director extends Former {
             case 4 : {race = UNDEAD;break;}
             default : {race = "";break;}
         }
-        Runner.dark_ready.add(createMage(race));
+        Runner.dark_full.add(createMage(race));
         for (int i = 0; i <= 2; i++) {
-            Runner.dark_ready.add(createArcher(race));
+            Runner.dark_full.add(createArcher(race));
         }
         for (int i = 0; i <= 3; i++) {
-            Runner.dark_ready.add(createWarrior(race));
+            Runner.dark_full.add(createWarrior(race));
         }
     }
 

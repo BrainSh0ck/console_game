@@ -13,9 +13,6 @@ public abstract class Constract {
 
     private int quota;
 
-    private boolean normal = true;
-    private boolean extra = false;
-    private boolean cursed = false;
 
     public String getEntity_race() {
         return entity_race;
@@ -42,7 +39,27 @@ public abstract class Constract {
     private String action1 = "";
     private String action2 = "";
     private String action3 = "";
-    public boolean hasMove = false;
+
+
+    protected boolean hasMove = false;
+    protected boolean extra = false;
+    protected boolean cursed = false;
+
+    public boolean isExtra() {
+        return extra;
+    }
+
+    public void setExtra(boolean extra) {
+        this.extra = extra;
+    }
+
+    public boolean isCursed() {
+        return cursed;
+    }
+
+    public void setCursed(boolean cursed) {
+        this.cursed = cursed;
+    }
 
     public String getName() {
         return name;
@@ -115,21 +132,7 @@ public abstract class Constract {
         this.quota = quota;
     }
 
-    public boolean status() {
-        return normal;
-    }
 
-    public void setNormal(boolean normal) {
-        this.normal = normal;
-    }
-
-    public void setExtra(boolean extra) {
-        this.extra = extra;
-    }
-
-    public void setCursed(boolean cursed) {
-        this.cursed = cursed;
-    }
 
 
 }
