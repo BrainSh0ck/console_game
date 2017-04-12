@@ -194,7 +194,7 @@ public class Unit extends Constract implements Actions{
         }
         Unit ob;
         int rnd_allow = 1;
-        if (candidats.size() >= 0) {
+        if (candidats.size() > 1) {
             int random = Runner.random(candidats.size() - 1, 1);
             if (random >= 1) {
                 rnd_allow = random;
@@ -241,14 +241,14 @@ public class Unit extends Constract implements Actions{
         if (Runner.light_full.contains(unit)) {
             for (Unit cont : Runner.light_full) {
                 if (cont.isExtra()) {
-                    cont.dextra(unit); break;
+                    cont.clearExtra(false); break;
                 }
             }
         }
         if (Runner.dark_full.contains(unit)) {
             for (Unit cont : Runner.dark_full) {
                 if (isExtra()) {
-                    cont.dextra(unit);break;
+                    cont.clearExtra(false);break;
                 }
             }
         }

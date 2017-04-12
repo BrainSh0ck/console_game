@@ -49,6 +49,9 @@ public abstract class Constract {
         return extra;
     }
 
+    public void clearExtra(boolean extra) {
+        this.extra = extra;
+    }
     public void setExtra(boolean extra) {
         float upM = mDmg*1.5F;
         this.mDmg = (int)upM;
