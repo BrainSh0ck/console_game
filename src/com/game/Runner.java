@@ -19,22 +19,13 @@ public class Runner {
 
 
     public static void main(String[] args) {
-        clear_static();
+        //clear_static();
         Director director = new Director();
         director.MakeSquads();
-        roundStart();
-        doRound();
-        roundEnd();
-
-        roundStart();
-        doRound();
-        roundEnd();
-
-        roundStart();
-        doRound();
-        roundEnd();
-
-        roundStart();
+        roundCircle();
+        roundCircle();
+        roundCircle();
+        roundCircle();
 
         showCollection(light_full);
         showCollection(dark_full);
@@ -45,6 +36,12 @@ public class Runner {
     /**
      *  Методы атаки привелигированных войск
      */
+    public static void roundCircle () {
+        roundStart();
+        doRound();
+        roundEnd();
+
+    }
     public static void light_extraAttack (){
         if ((light_extra.size()-1) == 0) {
             light_extra.get(0).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
@@ -147,7 +144,7 @@ public class Runner {
 
             switch (random(2,1)) {
                 case 1 : {
-                    while ((light.size() > 0) | (dark.size() > 0)) {
+                    while ((light.size() > 0) & (dark.size() > 0)) {
                     if (light_extra.size() >= 0) light_extraAttack();
                     //if (dark_extra.size() >= 0) dark_extraAttack();
 
@@ -159,7 +156,7 @@ public class Runner {
                 }
 
                 case 2 : {
-                    while ((dark.size() > 0) | (light.size() > 0)) {
+                    while ((dark.size() > 0) & (light.size() > 0)) {
                     if(dark_extra.size() >= 0) dark_extraAttack();
                     //if(light_extra.size() >= 0)light_extraAttack();
 
@@ -172,7 +169,7 @@ public class Runner {
             }
 
         System.out.print("-----------------------------------------------------------------");System.out.println();
-    System.out.print(light.size());System.out.println(dark.size());
+    System.out.print(light.size());System.out.println(dark.size()); //здесь будут умерать
     }
 
 
