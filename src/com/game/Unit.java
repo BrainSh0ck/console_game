@@ -231,22 +231,30 @@ public class Unit extends Constract implements Actions{
 
     @Override
     public Unit dextra(final Unit unit) {
+        /**
+         *  Уход от присвоения null
+         */
+        Unit ob = new Unit(Constants.ORK, new Warrior());
         if (Runner.light_full.contains(unit)) {
             for (Unit cont : Runner.light_full) {
                 if (cont.isExtra()) {
-                    cont.clearExtra(false); break;
+                    cont.clearExtra(false);
+                    ob = cont;
+                    break;
                 }
             }
         }
         if (Runner.dark_full.contains(unit)) {
             for (Unit cont : Runner.dark_full) {
                 if (isExtra()) {
-                    cont.clearExtra(false);break;
+                    cont.clearExtra(false);
+                    ob = cont;
+                    break;
                 }
             }
         }
-        this.displayDextra(getAction1(),unit);
-        return unit;
+        this.displayDextra(getAction1(),ob);
+        return ob;
     }
 
     @Override

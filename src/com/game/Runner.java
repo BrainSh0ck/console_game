@@ -171,7 +171,7 @@ public class Runner {
 
     /**
      * Метод отладки
-     * @param list коллекция объктов
+     * @param list коллекция объектов
      */
     public static void showCollection (List<Unit> list) {
         for (Unit l : list) {
