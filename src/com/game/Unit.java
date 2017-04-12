@@ -10,7 +10,7 @@ import java.util.List;
 public class Unit extends Constract implements Actions{
     private List<Unit> candidats = new LinkedList<Unit>();
 
-    Unit(final String race, Specs spec) {
+    Unit(final String race, final Specs spec) {
         this.race = race;
         this.spec = spec;
         unit_init();
@@ -20,9 +20,9 @@ public class Unit extends Constract implements Actions{
         setEntity_race(this.race);
         setEntity_spec(spec_init());
         switch (getEntity_spec()) {
-            case "mag" : {setMag(this.race);break;}
-            case "archer" : {setArcher(this.race);break;}
-            case "warrior" : {setWarrior(this.race);break;}
+            case Constants.MAG : {setMag(this.race);break;}
+            case Constants.ARCHER : {setArcher(this.race);break;}
+            case Constants.WARRIOR : {setWarrior(this.race);break;}
             default : {break;}
         }
     }
@@ -31,15 +31,15 @@ public class Unit extends Constract implements Actions{
         String spec;
         switch (this.spec.toString()) {
             case "1": {
-                spec = "mag";
+                spec = Constants.MAG ;
                 break;
             }
             case "2": {
-                spec = "archer";
+                spec = Constants.ARCHER;
                 break;
             }
             case "3": {
-                spec = "warrior";
+                spec = Constants.WARRIOR;
                 break;
             }
             default: {
@@ -49,24 +49,23 @@ public class Unit extends Constract implements Actions{
         }
         return spec;
     }
-    public void deExtra(boolean extra) {
+    public void deExtra(final boolean extra) {
         unit_init();
         this.extra = extra;
     }
-    public void deCursed(boolean curce) {
+    public void deCursed(final boolean curce) {
         unit_init();
         this.cursed = curce;
     }
-    private void setMag(String race) {
+    private void setMag(final String race) {
         String[] sets = new String[6];
         sets=this.spec.setMag(this.race);
         this.setName(sets[0]);
         this.setmDmg(Integer.parseInt(sets[3]));
         this.setAction1(sets[4]);
         this.setAction2(sets[5]);
-        this.setQuota(this.spec.getQuota());
     }
-    private void setArcher(String race) {
+    private void setArcher(final String race) {
         String[] sets = new String[5];
         sets=this.spec.setArcher(this.race);
         this.setName(sets[0]);
@@ -74,29 +73,24 @@ public class Unit extends Constract implements Actions{
         this.setAction1(sets[2]);
         this.setrDmg(Integer.parseInt(sets[3]));
         this.setAction2(sets[4]);
-        this.setQuota(this.spec.getQuota());
     }
-    private void setWarrior(String race) {
+    private void setWarrior(final String race) {
         String[] sets = new String[4];
         sets=this.spec.setWarrior(this.race);
         this.setName(sets[0]);
         this.setmDmg(Integer.parseInt(sets[1]));
         this.setAction1(sets[2]);
-        this.setQuota(this.spec.getQuota());
     }
-    public void showEntity() {
-        System.out.println(String.format("HP(%d)-%s ",getHP(),getName()));
-        }
     public void showSquadStat() {
         System.out.println(String.format("HP(%d)-%s extra: %s, cursed: %s, mDmg: %d rDmg: %d, hasMoved: %s"
                 ,getHP(),getName(),isExtra(),isCursed(),getmDmg(),getrDmg(),hasMove));
     }
 
-    public Unit do_action (Unit unit) {
+    public Unit do_action (final Unit unit) {
        switch (getEntity_spec()) {
-            case "mag" :  {
+            case Constants.MAG :  {
 
-                if (( getEntity_race().equals("human") ) || ( getEntity_race().equals("elf") )) {
+                if (( getEntity_race().equals(Constants.HUMAN) ) || ( getEntity_race().equals(Constants.ELF) )) {
                     switch (Runner.random(2, 1)) {
                         case 1: {
                             attack_mag(unit);
@@ -108,7 +102,7 @@ public class Unit extends Constract implements Actions{
                         }
                     }
                 }
-                if (getEntity_race().equals("ork")) {
+                if (getEntity_race().equals(Constants.ORK)) {
                     switch (Runner.random(2, 1)) {
                         case 1: {
                             dextra(unit);
@@ -120,7 +114,7 @@ public class Unit extends Constract implements Actions{
                         }
                     }
                 }
-                if (getEntity_race().equals("undead")) {
+                if (getEntity_race().equals(Constants.UNDEAD)) {
                     switch (Runner.random(2, 1)) {
                         case 1: {
                             attack_mag(unit);
@@ -133,7 +127,7 @@ public class Unit extends Constract implements Actions{
                     }
                 }
              break;}
-            case "archer" : {
+            case Constants.ARCHER : {
                 switch (Runner.random(2, 1)) {
                     case 1: {
                         attack_war(unit);
@@ -145,7 +139,7 @@ public class Unit extends Constract implements Actions{
                     }
                 }
                 break;}
-            case "warrior" : {
+            case Constants.WARRIOR : {
                     attack_war(unit);
                 break;}
             default  : {break;}
@@ -158,26 +152,26 @@ public class Unit extends Constract implements Actions{
 
 
     @Override
-    public Unit attack_war(Unit unit) {
+    public Unit attack_war(final Unit unit) {
        unit.hit(unit.getHP() - this.getmDmg());
        this.displayWar(getAction1(),unit);
         return unit;
     }
     @Override
-    public Unit attack_arr(Unit unit) {
+    public Unit attack_arr(final Unit unit) {
         unit.hit(unit.getHP() - this.getmDmg());
         this.displayWar(getAction2(),unit);
         return unit;
     }
     @Override
-    public Unit attack_mag(Unit unit) {
+    public Unit attack_mag(final Unit unit) {
         unit.hit(unit.getHP() - this.getmDmg());
         this.displayWar(getAction1(),unit);
         return unit;
     }
 
     @Override
-    public Unit extra(Unit unit) {
+    public Unit extra(final Unit unit) {
         if (Runner.light_full.contains(unit)) {
                for (Unit cont : Runner.dark_full) {
                     if (cont.getEntity_spec().equals(unit.getEntity_spec())) {
@@ -231,13 +225,12 @@ public class Unit extends Constract implements Actions{
             }
 
         }
-        //unit.setExtra(true);
         this.displayExtra(getAction2(),ob);
         return ob;
     }
 
     @Override
-    public Unit dextra(Unit unit) {
+    public Unit dextra(final Unit unit) {
         if (Runner.light_full.contains(unit)) {
             for (Unit cont : Runner.light_full) {
                 if (cont.isExtra()) {
@@ -252,29 +245,28 @@ public class Unit extends Constract implements Actions{
                 }
             }
         }
-        //unit.setExtra(true);
         this.displayDextra(getAction1(),unit);
         return unit;
     }
 
     @Override
-    public Unit curce(Unit unit) {
+    public Unit curce(final Unit unit) {
         unit.setCursed(true);
         this.displayCurce(getAction2(),unit);
         return unit;
     }
 
-    public void displayWar(String console, Unit unit) {
+    public void displayWar(final String console, final Unit unit) {
         System.out.println(this.getName() + console + "по " + unit.getName() +" вышибив " + this.getmDmg() + " HP "
                 +  " (" + unit.getHP()+" осталось)");
     }
-    public void displayExtra(String console, Unit unit) {
+    public void displayExtra(final String console, final Unit unit) {
         System.out.println(this.getName() + console + "на " + unit.getName() +" увеличив его урон на 50%");
     }
-    public void displayDextra(String console, Unit unit) {
+    public void displayDextra(final String console,final Unit unit) {
         System.out.println(this.getName() + console + "на " + unit.getName() +" убрав с него улучшение");
     }
-    public void displayCurce(String console, Unit unit) {
+    public void displayCurce(final String console,final Unit unit) {
         System.out.println(this.getName() + console + "на " + unit.getName() +" уменьшив его урон на 50%");
     }
 }

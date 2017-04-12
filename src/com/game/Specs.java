@@ -4,17 +4,15 @@ package com.game;
  * Created by root on 10.04.2017.
  */
 public abstract class Specs {
-    protected String[] setMag (String race) {
+    protected String[] setMag (final String race) {
          return null;
     }
-    protected String[] setArcher (String race) {
+    protected String[] setArcher (final String race) {
         return null;
     }
-    protected String[] setWarrior (String race) {
+    protected String[] setWarrior (final String race) {
         return null;
     }
 
-    protected int getQuota() {
-        return 0;
-    }
+
 }

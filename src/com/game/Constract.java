@@ -1,5 +1,4 @@
 package com.game;
-
 /**
  * Created by root on 10.04.2017.
  * Главный предок объекта со всеми общими свойствами
@@ -8,8 +7,7 @@ public abstract class Constract {
     protected String race;
     protected Specs spec;
 
-    private static final int MAX_HP = 100;
-    private int HP = (int)MAX_HP;
+    private int HP = (int)Constants.MAX_HP;
 
     private String entity_race;
     private String entity_spec;
@@ -31,10 +29,10 @@ public abstract class Constract {
         return extra;
     }
 
-    public void clearExtra(boolean extra) {
+    public void clearExtra(final boolean extra) {
         this.extra = extra;
     }
-    public void setExtra(boolean extra) {
+    public void setExtra(final boolean extra) {
         float upM = mDmg*1.5F;
         this.mDmg = (int)upM;
         float upR = rDmg*1.5F;
@@ -45,7 +43,7 @@ public abstract class Constract {
         return cursed;
     }
 
-    public void setCursed(boolean cursed) {
+    public void setCursed(final boolean cursed) {
         float upM = mDmg/1.5F;
         this.mDmg = (int)upM;
         float upR = rDmg/1.5F;
@@ -62,7 +60,7 @@ public abstract class Constract {
         return entity_race;
     }
 
-    public void setEntity_race(String entity_race) {
+    public void setEntity_race(final String entity_race) {
         this.entity_race = entity_race;
     }
 
@@ -70,11 +68,11 @@ public abstract class Constract {
         return entity_spec;
     }
 
-    public void setEntity_spec(String entity_spec) {
+    public void setEntity_spec(final String entity_spec) {
         this.entity_spec = entity_spec;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -82,7 +80,7 @@ public abstract class Constract {
         return mDmg;
     }
 
-    public void setmDmg(int mDmg) {
+    public void setmDmg(final int mDmg) {
         this.mDmg = mDmg;
     }
 
@@ -90,7 +88,7 @@ public abstract class Constract {
         return rDmg;
     }
 
-    public void setrDmg(int rDmg) {
+    public void setrDmg(final int rDmg) {
         this.rDmg = rDmg;
     }
 
@@ -102,11 +100,11 @@ public abstract class Constract {
         return action2;
     }
 
-    public void setAction1(String action1) {
+    public void setAction1(final String action1) {
         this.action1 = action1;
     }
 
-    public void setAction2(String action2) {
+    public void setAction2(final String action2) {
         this.action2 = action2;
     }
 
@@ -114,7 +112,7 @@ public abstract class Constract {
         return HP;
     }
 
-    public void hit(int HP) {
+    public void hit(final int HP) {
         this.HP = HP;
     }
 

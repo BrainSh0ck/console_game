@@ -6,14 +6,6 @@ import java.util.Random;
  * Created by root on 10.04.2017.
  */
 public class Director extends Former {
-    private static final String ORK = "ork";
-    private static final String UNDEAD = "undead";
-    private static final String HUMAN = "human";
-    private static final String ELF = "elf";
-
-    //List<List> squad = new ArrayList<List>();
-    //List<Unit> dark_full = new ArrayList<Unit>();
-
     public void MakeSquads() {
 
         switch (random(4,1)) {
@@ -30,11 +22,11 @@ public class Director extends Former {
         int randomNum = rand.nextInt((max - min) + 1) + min;
         return randomNum;
     }
-    public void setLightSquad (int race_rnd) {
+    public void setLightSquad (final int race_rnd) {
         String race;
         switch (race_rnd) {
-            case 1 : {race = ELF; break;}
-            case 2 : {race = HUMAN; break;}
+            case 1 : {race = Constants.ELF; break;}
+            case 2 : {race = Constants.HUMAN; break;}
             default :  {race = ""; break;}
         }
         Runner.light_full.add(createMage(race));
@@ -45,11 +37,11 @@ public class Director extends Former {
             Runner.light_full.add(createWarrior(race));
         }
     }
-    public void setDarkSquad (int race_rnd) {
+    public void setDarkSquad (final int race_rnd) {
         String race;
         switch (race_rnd) {
-            case 3 : {race = ORK; break;}
-            case 4 : {race = UNDEAD;break;}
+            case 3 : {race = Constants.ORK; break;}
+            case 4 : {race = Constants.UNDEAD;break;}
             default : {race = "";break;}
         }
         Runner.dark_full.add(createMage(race));
@@ -62,19 +54,20 @@ public class Director extends Former {
     }
 
     @Override
-    public Unit createMage(String race) {
+    public Unit createMage(final String race) {
 
         return new Unit(race, new Mag());
     }
 
     @Override
-    public Unit createArcher(String race) {
+    public Unit createArcher(final String race) {
 
         return new Unit(race,new Archer());
     }
 
     @Override
-    public Unit createWarrior(String race) {
+    public Unit createWarrior(final String race) {
+
         return new Unit(race,  new Warrior());
     }
 }
