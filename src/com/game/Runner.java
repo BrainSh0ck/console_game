@@ -43,12 +43,12 @@ public class Runner {
     public static void light_extraAttack (){
         if (light_extra.size()-1 > 0) {
             int random = random(light.size() - 1, 0);
-            light_extra.get(random).attack_war(dark_full.get(random(dark_full.size() - 1, 0)));
+            light_extra.get(random).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light_extra.get(random).hasMove = true;
             light_extra.remove(random);
         }
         if (light_extra.size()-1 == 0) {
-            light_extra.get(0).attack_war(dark_full.get(random(dark_full.size() - 1, 0)));
+            light_extra.get(0).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light_extra.get(0).hasMove = true;
             light_extra.remove(0);
         }
@@ -56,13 +56,13 @@ public class Runner {
     public static void dark_extraAttack () {
         if (dark_extra.size()-1 > 0) {
             int random = random(dark.size() - 1, 0);
-            dark_extra.get(random).attack_war(light_full.get(random(light_full.size() - 1, 0)));
+            dark_extra.get(random).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark_extra.get(random).hasMove = true;
             dark_extra.remove(random);
             //   System.out.println(dark.size());
         }
         if (dark_extra.size()-1 == 0) {
-            dark_extra.get(0).attack_war(light_full.get(random(light_full.size() - 1, 0)));
+            dark_extra.get(0).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark_extra.get(0).hasMove = true;
             dark_extra.remove(0);
         }
@@ -70,13 +70,13 @@ public class Runner {
     public static void lightAttack() {
         if (light.size()-1 > 0) {
             int random = random(light.size() - 1, 0);
-            light.get(random).attack_war(dark_full.get(random(dark_full.size() - 1, 0)));
+            light.get(random).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light.get(random).hasMove = true;
             light.remove(random);
             //System.out.println(light.size());
         }
         if (light.size()-1 == 0) {
-            light.get(0).attack_war(dark_full.get(random(dark_full.size() - 1, 0)));
+            light.get(0).do_action(dark_full.get(random(dark_full.size() - 1, 0)));
             light.get(0).hasMove = true;
             light.remove(0);
         }
@@ -84,13 +84,13 @@ public class Runner {
     public static void darkAttack() {
         if (dark.size()-1 > 0) {
             int random = random(dark.size() - 1, 0);
-            dark.get(random).attack_war(light_full.get(random(light_full.size() - 1, 0)));
+            dark.get(random).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark.get(random).hasMove = true;
             dark.remove(random);
          //   System.out.println(dark.size());
         }
         if (dark.size()-1 == 0) {
-            dark.get(0).attack_war(light_full.get(random(light_full.size() - 1, 0)));
+            dark.get(0).do_action(light_full.get(random(light_full.size() - 1, 0)));
             dark.get(0).hasMove = true;
             dark.remove(0);
         }

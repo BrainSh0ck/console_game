@@ -50,6 +50,10 @@ public abstract class Constract {
     }
 
     public void setExtra(boolean extra) {
+        float upM = mDmg*1.5F;
+        this.mDmg = (int)upM;
+        float upR = rDmg*1.5F;
+        this.rDmg = (int)upR;
         this.extra = extra;
     }
 
@@ -58,6 +62,11 @@ public abstract class Constract {
     }
 
     public void setCursed(boolean cursed) {
+        float upM = mDmg/1.5F;
+        this.mDmg = (int)upM;
+        float upR = rDmg/1.5F;
+        this.rDmg = (int)upR;
+
         this.cursed = cursed;
     }
 
