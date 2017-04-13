@@ -88,8 +88,11 @@ public class Unit extends Constract implements Actions{
                 ,getHP(),getName(),isExtra(),isCursed(),getmDmg(),getrDmg(),hasMove));
     }
 
-    public Unit do_action (final Unit unit) {
-       switch (getEntity_spec()) {
+    public Unit do_action (Unit unit) {
+       if (unit.getHP() < 0 ) {
+
+       }
+        switch (getEntity_spec()) {
             case Constants.MAG :  {
 
                 if (( getEntity_race().equals(Constants.HUMAN) ) || ( getEntity_race().equals(Constants.ELF) )) {
@@ -233,28 +236,53 @@ public class Unit extends Constract implements Actions{
 
     @Override
     public Unit dextra(final Unit unit) {
-        /**
-         *  Уход от присвоения null
-         */
-        Unit ob = new Unit(Constants.ORK, new Warrior());
+        Unit ob = new Unit(Constants.ORK,new Warrior());
+        int random;
         if (Runner.light_full.contains(unit)) {
+
             for (Unit cont : Runner.light_full) {
                 if (cont.isExtra()) {
                     cont.setNext_clear(true);
                     ob = cont;
-                    break;
+
                 }
+                if (Runner.light_full.size() > 1) {
+                    random = Runner.random(Runner.light_full.size() - 1, 0);
+                } else {
+                    random = 0;
+                  }
+                    try {
+                    ob = Runner.light_full.get(random);
+                    ob.setNext_clear(true);
+                    } catch (Exception e) {
+
+                    }
+
             }
-        }
-        if (Runner.dark_full.contains(unit)) {
+        } else {
             for (Unit cont : Runner.dark_full) {
                 if (isExtra()) {
                     cont.setNext_clear(true); //clear Extra (false)
                     ob = cont;
-                    break;
+
                 }
+                if (Runner.dark_full.size() > 1) {
+                    random = Runner.random(Runner.dark_full.size() - 1, 0);
+                } else {
+                    random = 0;
+                  }
+
+                    try {
+                       ob = Runner.dark_full.get(random);
+                       ob.setNext_clear(true);
+                    } catch (Exception e) {
+
+                    }
+
             }
         }
+
+
         this.displayDextra(getAction1(),ob);
         return ob;
     }
@@ -274,9 +302,12 @@ public class Unit extends Constract implements Actions{
         System.out.println(this.getName() + console + "на " + unit.getName() +" увеличив его урон на 50%");
     }
     public void displayDextra(final String console,final Unit unit) {
-        System.out.println(this.getName() + console + "на " + unit.getName() +" убрав с него улучшение");
+        System.out.println(this.getName() + console + "на " + unit.getName() +" запретив ему улучшения");
     }
     public void displayCurce(final String console,final Unit unit) {
         System.out.println(this.getName() + console + "на " + unit.getName() +" уменьшив его урон на 50%");
+    }
+    protected void consoleDead () {
+        System.out.println("Персонаж " + getName() + " умер.");
     }
 }

@@ -18,19 +18,19 @@ public class Runner {
     public static List<Unit> dark_extra = new LinkedList<Unit>();
 
 
+    public static void welcome() {
+
+    }
+
     public static void main(String[] args) {
-        //clear_static();
+        Scanner scanner = new Scanner(System.in);
+        welcome();
+        //scanner.nextLine();
         Director director = new Director();
         director.MakeSquads();
-        roundCircle();
-        roundCircle();
-        roundCircle();
-        roundCircle();
-
-        showCollection(light_full);
-        showCollection(dark_full);
-
-
+        while ( (dark_full.size() > 0) && (light_full.size() > 0)) {
+            roundCircle();
+        }
     }
 
     /**
@@ -144,11 +144,8 @@ public class Runner {
 
             switch (random(2,1)) {
                 case 1 : {
-                    while ((light.size() > 0) & (dark.size() > 0)) {
+                    while ((light.size() > 0) | (dark.size() > 0)) {
                     if (light_extra.size() >= 0) light_extraAttack();
-                    //if (dark_extra.size() >= 0) dark_extraAttack();
-
-
                         lightAttack();
                         darkAttack();
                     }
@@ -156,10 +153,8 @@ public class Runner {
                 }
 
                 case 2 : {
-                    while ((dark.size() > 0) & (light.size() > 0)) {
+                    while ((dark.size() > 0) | (light.size() > 0)) {
                     if(dark_extra.size() >= 0) dark_extraAttack();
-                    //if(light_extra.size() >= 0)light_extraAttack();
-
                         darkAttack();
                         lightAttack();
 
@@ -169,13 +164,15 @@ public class Runner {
             }
 
         System.out.print("-----------------------------------------------------------------");System.out.println();
-    System.out.print(light.size());System.out.println(dark.size()); //здесь будут умерать
+     //здесь будут умирать
+        spitOfDeath();
     }
 
 
     /**
      * Работа с объектами по окончанию раунда
      */
+
     public static void roundEnd() {
         for (Unit e : light_full) {
             if (e.isExtra()) {
@@ -183,6 +180,7 @@ public class Runner {
             } if (e.isCursed()) {
                 e.deCursed(false);
             }
+            e.hasMove = false;
         }
         for (Unit e : dark_full) {
             if (e.isExtra()) {
@@ -190,9 +188,23 @@ public class Runner {
             } if (e.isCursed()) {
                 e.deCursed(false);
             }
+            e.hasMove = false;
         }
     }
-
+    public static void spitOfDeath() {
+        for (int u = 0; u <= light_full.size()-1; u++ ) {
+            if (light_full.get(u).getHP() <= 0 ) {
+                light_full.get(u).consoleDead();
+                light_full.remove(u);
+            }
+        }
+        for (int u = 0; u <= dark_full.size()-1; u++) {
+            if (dark_full.get(u).getHP() <= 0 ) {
+                dark_full.get(u).consoleDead();
+                dark_full.remove(u);
+            }
+        }
+    }
     /**
      * Метод отладки
      * @param list коллекция объектов
